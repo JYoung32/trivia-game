@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 <title>Trivia Game!</title>
@@ -17,13 +17,29 @@
             <h1 class="display-4">Welcome to Trivia!</h1>
             <p class="lead">Instructions</p>
         </div>
-        <div class="game-area">
-            <div class="timer">Timer here</div>
-            <div class="question">
-                <h3>Question Asked here</h3>
+        <div class="jumbotron text-center game-area">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Question:</h2>
+                </div>
+                <div class="card-body">
+                <p class="card-text question">Question gets manipulated here.</p>
+                </div>
             </div>
-            <div class="choices">
-                <p>Answer choices placed here</p>
+            <hr class="my-4">
+            <div class="row d-flex justify-content-around">
+                <div class="card col-3">
+                    <div class="card-body">
+                        <h3 class="card-title">Time Remaining:</h3>
+                        <p class="card-text timer">00 Seconds</p>
+                    </div>
+                </div>
+                <div class="card col-8">
+                    <div class="card-body">
+                        <h3 class="card-title">Choices:</h3>
+                        <p class="card-text choices">Possible answers get manipulated here.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
