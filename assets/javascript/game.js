@@ -10,46 +10,84 @@
 var trivia = {
     //variable for trivia
     correct: 0,
-    inccorect: 0,
+    incorrect: 0,
     unanswered: 0,
     currentSet: 0,
     timer: 15,
     timerOn: false,
     timerCount: '',
     //questions
-    questions: ["Question1", "Question2", "Question3", "Question4", "Question5", "Question6", "Question7", "Question8", "Question9", "Question10"],
+    questions: ["What superhero is Tony Stark?", "What is Batman's alias?", "Which superhero is not part of the Fantastic 4?", "Which newspaper does Peter Parker work for?", "Wolverine's claws are made of", "What item is not part of Batman's aresenal?", "What Superhero team includes a sentient tree creature?", "Question8", "Question9", "Question10"],
     //choices
     choices: [
-        ["a", "b", "c", "d"],
-        ["a", "b", "c", "d"],
-        ["a", "b", "c", "d"],
-        ["a", "b", "c", "d"],
-        ["a", "b", "c", "d"],
-        ["a", "b", "c", "d"],
-        ["a", "b", "c", "d"],
+        ["Batman", "Spider-Man", "Iron Man", "Deadpool"],
+        ["Tony Stark", "Bruce Wayne", "Clark Kent", "Steven Strange"],
+        ["The Hulk", "Mr. Fantastic", "Human Torch", "Susan Storm"],
+        ["New Daily Globe", "The Daily Planet", "The Daily News", "The Daily Bugle"],
+        ["Titanium", "Adamantium", "Vibranium", "Aluminum"],
+        ["Batmobile", "Grappling Hook", "Power Ring", "Utility Belt"],
+        ["Teen Titans", "Guardians Of The Galaxy", "Suicide Squad", "The Justice League"],
         ["a", "b", "c", "d"],
         ["a", "b", "c", "d"],
         ["a", "b", "c", "d"],
     ],
     //answers
-    answers: ["Answer1", "Answer2", "Answer3", "Answer4", "Answer5", "Answer6", "Answer7", "Answer8", "Answer9", "Answer10"],
+    answers: ["Iron Man", "Bruce Wayne", "The Hulk", "The Daily Bugle", "Adamantium", "Power Ring", "Guardians Of The Galaxy", "Answer8", "Answer9", "Answer10"],
 }
 
 $(document).ready(function(){
 //make a function to put question into questions class with a 15 second timer
 //function ask question with choices
+
+//JS to insert items, will be moved later
 $(".question").html(trivia.questions[0]);
 $(".btn-1").html(trivia.choices[0][0]);
 $(".btn-2").html(trivia.choices[0][1]);
 $(".btn-3").html(trivia.choices[0][2]);
 $(".btn-4").html(trivia.choices[0][3]);
+$(".timer").html(trivia.timer + " Seconds")
+
+
 //timeout counter
 
+//function to start game
+function gamestart(){
+    //game start values
+    trivia.currentSet = 0;
+    trivia.correct = 0;
+    trivia.incorrect = 0;
+    trivia.unanswered = 0;
 
+    $(".timer").text(trivia.timer + " Seconds")
 
+}
+//function to ask question
+function askQuestion(){
+    //reset timer for question
+    trivia.timer = 15;
+    $(".timer").text(trivia.timer + " Seconds");
+    //prevent speed up
+    if(!trivia.timerOn){
+        setInterval(timerRun, 1000);
+    }
 
+}
 
+function guessChecker(){
+    if(trivia.choices === trivia.answers){
+        alert("correct")
+    } else {
+        alert("Wrong")
+    }
+}
 
+function timerRun(){
+    //if(trivia.timer > -1 && trivia.currentSet < Object.keys(trivia.questions).length){
+        trivia.timer--;
+        $(".timer").text(trivia.timer + " Seconds");
+    //}
+}
+timeRun()
 
 
 })
