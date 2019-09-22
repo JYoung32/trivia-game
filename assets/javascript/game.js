@@ -4,7 +4,7 @@
 //if user clicks wrong answer, store count, display correct answer, and move on to next question
 //if user does not choose an answer within timer, count as unanswered, display answer, and move on to next question
 //at the end of the game, display scoreboard of correct answer and wrong answers.
-
+//--------------------------------------
 //variable for trivia
 var trivia = [
     {
@@ -58,25 +58,12 @@ var trivia = [
         answer: "Answer10"
     }
 ];
-
 //default game values
 var counter = 20;
 var currentQuestion = 0;
 var correct = 0;
 var incorrect = 0;
 var timer;
-
-
-//function to go to the next question
-function nextQuestion(){
-    var endGame = (trivia.length - 1) === currentQuestion;
-    if (endGame){
-        console.log("game over");
-    } else {
-    currentQuestion++;
-    showQuestion();
-    }
-};
 
 //make the counter stop at 0 and fire next question
 function timeStop(){
@@ -87,7 +74,7 @@ function timeStop(){
 //make a countdown timer
 function countDown(){
     counter--;
-    $(".timer").html("<h5>" + counter + "<br>Seconds remaining</h5>");
+    $(".timer").html("<div class='card m-3 p-3'><h5>" + counter + " Seconds remaining</h5></div>");
     if(counter === 0){
         timeStop();
     }
@@ -100,21 +87,40 @@ function showQuestion(){
     var question = trivia[currentQuestion].question;
     var choices = trivia[currentQuestion].choices;
 
-    $(".question").html("<h3>" + question + "</h3>");
-    $(".timer").html("<h5>" + counter + "<br>Seconds remaining</h5>");
-    $(".choices").html(showChoices(choices));
+    $(".question").html("<div class='card'>" +
+        "<div class='card-header'><h3>" + question + 
+        "</h3></div></div>");
+
+    $(".timer").html("<div class='card m-3 p-3'><h5>" + counter + " Seconds remaining</h5></div>");
+
+    $(".choices").html("<div class='card m-3'>" +
+        "<div class='card-body'>" +
+        "<div class='row d-flex justify-content-around m-3'>" + showChoices(choices) + 
+        "</div></div></div>");
+
+    $(".spacer").html("<hr class='my-5'></hr>");
 };
 //make a function to load choices
 function showChoices(choices){
     var result = "";
     for(var i = 0; i < choices.length; i++){
-        result = result + ("<p class='btn btn-primary col-sm m-2' data-answer='"+ choices[i] +
+        result = result + ("<p class='btn btn-primary col-sm m-2 choice' data-answer='"+ choices[i] +
         "'>" + choices[i] + "</p>");
     }
     return result;
 };
-
-$(document).on("click", ".btn", function(){
+//function to go to the next question
+function nextQuestion(){
+    var endGame = (trivia.length - 1) === currentQuestion;
+    if (endGame){
+        showResults();
+    } else {
+    currentQuestion++;
+    showQuestion();
+    }
+};
+//allow a click event on a dynamically added button
+$(document).on("click", ".choice", function(){
     clearInterval(timer);
     var clicked = $(this).attr("data-answer");
     var correctAnswer = trivia[currentQuestion].answer;
@@ -131,8 +137,29 @@ $(document).on("click", ".btn", function(){
 });
 
 //display results
-function results(){
+function showResults(){
+    var result = 
+        "<div class='card m-3 p-3'>" +
+        "<h4>You answered " + correct + " questions right!</h4>" +
+        "<h4>You answered " + incorrect + " questions wrong.</h4>" +
+        "</div>" +
+        "<button class='btn btn-primary m-5 reset'>Resart the Game!</button>";
     
-}
+    $(".game-area").html(result);
+};
 
-showQuestion();
+//make click event for reset button
+$(document).on("click", ".reset", function(){
+    counter = 20;
+    currentQuestion = 0;
+    correct = 0;
+    incorrect = 0;
+    timer = null;
+    showQuestion();
+});
+
+
+$(".start").click(function(){
+    $(".start").remove();
+    showQuestion();
+});
