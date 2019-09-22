@@ -69,24 +69,29 @@ var timer;
 
 //function to go to the next question
 function nextQuestion(){
+    var endGame = (trivia.length - 1) === currentQuestion;
+    if (endGame){
+        console.log("game over");
+    } else {
     currentQuestion++;
     showQuestion();
-}
+    }
+};
 
-//make a counter
+//make the counter stop at 0 and fire next question
 function timeStop(){
     clearInterval(timer);
     incorrect++;
     nextQuestion();
-}
-
+};
+//make a countdown timer
 function countDown(){
     counter--;
     $(".timer").html("<h5>" + counter + "<br>Seconds remaining</h5>");
-    if(counter ===0){
+    if(counter === 0){
         timeStop();
     }
-}
+};
 
 //make a function to load question to the page
 function showQuestion(){
@@ -98,13 +103,36 @@ function showQuestion(){
     $(".question").html("<h3>" + question + "</h3>");
     $(".timer").html("<h5>" + counter + "<br>Seconds remaining</h5>");
     $(".choices").html(showChoices(choices));
-}
-
+};
+//make a function to load choices
 function showChoices(choices){
     var result = "";
     for(var i = 0; i < choices.length; i++){
-        result = result + ("<p class='btn btn-primary col-sm m-2' data-answer='choices[i]'>" + choices[i] + "</p>");
+        result = result + ("<p class='btn btn-primary col-sm m-2' data-answer='"+ choices[i] +
+        "'>" + choices[i] + "</p>");
     }
     return result;
+};
+
+$(document).on("click", ".btn", function(){
+    clearInterval(timer);
+    var clicked = $(this).attr("data-answer");
+    var correctAnswer = trivia[currentQuestion].answer;
+    if(correctAnswer === clicked){
+        //user wins
+        correct++;
+        nextQuestion();
+    } else {
+        //user lost
+        incorrect++;
+        nextQuestion();
+    }
+    console.log("clicked", clicked);
+});
+
+//display results
+function results(){
+    
 }
+
 showQuestion();
