@@ -75,9 +75,10 @@ function timeStop(){
 
     incorrect++;
 
-    //rightWrongAnswer("wrong");
-    //setTimeout(nextQuestion, 3 * 1000);
-    nextQuestion();
+    rightWrongAnswer();
+    
+    setTimeout(nextQuestion, 3 * 1000);
+    //nextQuestion();
 };
 //make a countdown timer
 function countDown(){
@@ -153,17 +154,17 @@ $(document).on("click", ".choice", function(){
         //user wins
         correct++;
 
-        //rightWrongAnswer("right");
-        //setTimeout(nextQuestion, 3 * 1000);
-        nextQuestion();
+        rightWrongAnswer("right");
+        
+        setTimeout(nextQuestion, 3 * 1000);
 
     } else {
         //user lost
         incorrect++;
 
-        //rightWrongAnswer("wrong");
-        //setTimeout(nextQuestion,3 * 1000);
-        nextQuestion();
+        rightWrongAnswer("wrong");
+        
+        setTimeout(nextQuestion, 3 * 1000);
 
     };
 
@@ -173,39 +174,51 @@ $(document).on("click", ".choice", function(){
 
 //display picture if right answer, display different pic if wrong answer
 
-/*function rightWrongAnswer(state){
+function rightWrongAnswer(state){
 
     if(state === "right"){
 
         var right =
-        "<div><img class='right' src='./assets/images/giphy (3).gif'>";
+        "<div><img class='right' src='./assets/images/giphy (3).gif'></div>";
 
         $(".game-area").html(right);
 
-    } else {
+        setTimeout(divReset, 3 * 1000);
+
+    } else if(state === "wrong") {
 
         var wrong = 
-        "<div><img src='./assets/images/giphy (1).gif'>";
+        "<div><img src='./assets/images/giphy (1).gif'></div>";
 
         $(".game-area").html(wrong);
 
+        setTimeout(divReset, 3 * 1000);
+
+    } else {
+
+        var unanswered =
+        "<div><img src='./assets/images/giphy (4).gif'></div>"
+
+        $(".game-area").html(unanswered);
+
+        setTimeout(divReset, 3 * 1000);
     }
-}*/
+}
 
 //display results
 function showResults(){
 
-    var result = 
-        //"<div class='card m-3 p-3 result'>" +
+    var scoreBoard = 
+        "<div class='card m-3 p-3 result'>" +
         "<h4>You answered " + correct + " questions right!</h4>" +
         "<h4>You answered " + incorrect + " questions wrong.</h4>" +
-        //"</div>" +
+        "</div>" +
         "<button class='btn btn-primary m-5 result' id='reset'>Restart the Game!</button>";
     
-    $(".game-area").html(result);
+    $(".game-area").html(scoreBoard);
 
-    /*$(".game-area").css({"background-image": "url('./assets/images/giphy (2).gif')",
-    "background-size" : "cover"});*/
+    $(".game-area").css({"background-image": "url('./assets/images/giphy (2).gif')",
+    "background-size" : "cover"});
 
 };
 
@@ -217,26 +230,33 @@ $(document).on("click", "#reset", function(){
     incorrect = 0;
     timer = null;
 
-    /*$(".gamearea").remove();
-    $(".gamearea").html("<div class='question'></div><div class='spacer'></div><div class='choices'></div><div class='timer'></div>");*/
+    $(".game-area").html(divReset());
+
+    $(".game-area").css({"background-image": "url('./assets/images/giphy.gif')",
+    "background-size" : "cover"});
 
     showQuestion();
     console.log("reset click");
 });
 
-
+//start button click function
 $(".start").click(function(){
 
     $(".start").remove();
     showQuestion();
 
-    /*$(".game-area").css({"background-image": "url('./assets/images/giphy.gif')",
-    "background-size" : "cover"});*/
+    $(".game-area").css({"background-image": "url('./assets/images/giphy.gif')",
+    "background-size" : "cover"});
+
 });
 
-/*function clearDiv(){
-    $(".question").empty();
-    $(".choices").empty();
-    $(".timer").empty();
-    nextQuestion();
-}*/
+//function to reset div after right/wrong image shows
+function divReset(){
+    var div = 
+        "<div class='question'></div>" +
+        "<div class='spacer'></div>" + 
+        "<div class='choices'></div>" + 
+        "<div class='timer'></div>";
+
+    $(".game-area").html(div);
+}
