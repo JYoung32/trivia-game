@@ -154,7 +154,7 @@ $(document).on("click", ".choice", function(){
         correct++;
 
         //rightWrongAnswer("right");
-        //setTimeout(clearDiv, 3 * 1000);
+        //setTimeout(nextQuestion, 3 * 1000);
         nextQuestion();
 
     } else {
