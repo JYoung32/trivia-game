@@ -160,7 +160,6 @@ showResults = () => {
 divReset = () => {
     let div = `<div class='question'></div>
         <div class='timer'></div>`;
-
     $(".game-area").html(div);
 };
 
@@ -174,25 +173,12 @@ resetGame = () => {
     showQuestion();
 };
 
-
 startGame = () => {
     $(".start").remove();
     showQuestion();
     $(".game-area").css({"background-image": "url('./assets/images/giphy.gif')",
     "background-size" : "cover"});
-}
-
-$(document).on("click", ".start", () => { startGame() });
-
-//start button click function
-// $(".start").click(function(){
-//     $(".start").remove();
-//     showQuestion();
-//     $(".game-area").css({"background-image": "url('./assets/images/giphy.gif')",
-//     "background-size" : "cover"});
-// });
-
-
+};
 
 //allow a click event on a dynamically added button
 $(document).on("click", ".choice", function(){
@@ -212,4 +198,5 @@ $(document).on("click", ".choice", function(){
 });
 
 //click events
+$(document).on("click", ".start", () => { startGame() });
 $(document).on("click", ".result", () => { resetGame() });
