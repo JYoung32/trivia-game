@@ -164,13 +164,35 @@ divReset = () => {
     $(".game-area").html(div);
 };
 
-//start button click function
-$(".start").click(function(){
+resetGame = () => {
+    [counter, currentQuestion, correct, incorrect, unanswered, timer] = [20, 0, 0, 0, 0, null];
+
+    $(".game-area").html(divReset());
+    $(".game-area").css({"background-image": "url('./assets/images/giphy.gif')",
+    "background-size" : "cover"});
+
+    showQuestion();
+};
+
+
+startGame = () => {
     $(".start").remove();
     showQuestion();
     $(".game-area").css({"background-image": "url('./assets/images/giphy.gif')",
     "background-size" : "cover"});
-});
+}
+
+$(document).on("click", ".start", () => { startGame() });
+
+//start button click function
+// $(".start").click(function(){
+//     $(".start").remove();
+//     showQuestion();
+//     $(".game-area").css({"background-image": "url('./assets/images/giphy.gif')",
+//     "background-size" : "cover"});
+// });
+
+
 
 //allow a click event on a dynamically added button
 $(document).on("click", ".choice", function(){
@@ -189,14 +211,5 @@ $(document).on("click", ".choice", function(){
             setTimeout(nextQuestion, 3 * 1000));
 });
 
-
-//make click event for reset button
-$(document).on("click", ".result", function(){
-    [counter, currentQuestion, correct, incorrect, unanswered, timer] = [20, 0, 0, 0, 0, null];
-
-    $(".game-area").html(divReset());
-    $(".game-area").css({"background-image": "url('./assets/images/giphy.gif')",
-    "background-size" : "cover"});
-
-    showQuestion();
-});
+//click events
+$(document).on("click", ".result", () => { resetGame() });
